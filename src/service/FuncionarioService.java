@@ -3,7 +3,6 @@ package service;
 import dao.FuncionarioDao;
 import model.FuncionarioModel;
 
-import java.util.ArrayList;
 
 public class FuncionarioService {
 
@@ -18,10 +17,15 @@ public class FuncionarioService {
         return false;
     }
 
-    public boolean cadastrar(String nome, String email, String senha) {
+    public void cadastrar(String nome, String email, String senha) {
+        for (FuncionarioModel funcionario : dao.getFuncionarios()) {
+            if (funcionario.getEmail().equals(email)) {
+                System.out.println("Funcionario ja cadastrado.");
+            }
+        }
         FuncionarioModel funcionario = new FuncionarioModel(dao.getFuncionarios().size() + 1, nome, email, senha);
         dao.setFuncionarios(funcionario);
-        return true;
+
     }
 
     public void listar() {
@@ -30,19 +34,15 @@ public class FuncionarioService {
         }
     }
 
-    public void buscar(int id) {
-        boolean encontrado = false;
+    public FuncionarioModel buscar(String email) {
         for (FuncionarioModel funcionario : dao.getFuncionarios()) {
-            if (funcionario.getId() == id) {
-                System.out.println(funcionario);
-                encontrado = true;
-                break;
+            if (funcionario.getEmail() == email) {
+                return funcionario;
             }
         }
 
-        if (!encontrado) {
-            System.out.println("Funcionário não encontrado.");
-        }
+        System.out.println("Funcionário nao encontrado.");
+        return null;
     }
 
     public boolean atualizar(int id, String nome, String email, String senha) {

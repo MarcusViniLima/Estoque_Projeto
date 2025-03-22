@@ -5,26 +5,23 @@ import java.util.ArrayList;
 import model.EstoqueModel;
 import model.status.Classificacao;
 import service.FuncionarioService;
-import service.ProdutoService;
 
 public class EstoqueDao {
 
     private ArrayList<EstoqueModel> estoque = new ArrayList<EstoqueModel>();
-    private ProdutoService produtoService = new ProdutoService();
-    private FuncionarioService funcionarioService = new FuncionarioService();
+    private ProdutoDao produtoDao;
+    private FuncionarioService funcionarioService;
 
-    public EstoqueDao() {
-        cadastro();    
+    public EstoqueDao(ProdutoDao produtoDao, FuncionarioService funcionarioService) {
+        this.produtoDao = produtoDao;
+        this.funcionarioService = funcionarioService;
+        cadastro();
     }
 
     public void cadastro() {
-        estoque.add(new EstoqueModel(1, produtoService.buscar("1"), 10, funcionarioService.buscar("joao@joao"), Classificacao.ENTRADA));
-        estoque.add(new EstoqueModel(2, produtoService.buscar("2"), 10, funcionarioService.buscar("lucas@lucas"), Classificacao.ENTRADA));
-        estoque.add(new EstoqueModel(3, produtoService.buscar("3"), 10, funcionarioService.buscar("bruna@bruna"), Classificacao.ENTRADA));
-
-        estoque.add(new EstoqueModel(4, produtoService.buscar("2"), 15, funcionarioService.buscar("lucas@lucas"), Classificacao.SAIDA));
-        estoque.add(new EstoqueModel(5, produtoService.buscar("3"), 15, funcionarioService.buscar("bruna@bruna"), Classificacao.SAIDA));
-         
+        estoque.add(new EstoqueModel(1, produtoDao.buscar("1"), 50, funcionarioService.buscar("joao@joao"), Classificacao.ENTRADA));
+        estoque.add(new EstoqueModel(2, produtoDao.buscar("2"), 70, funcionarioService.buscar("lucas@lucas"), Classificacao.ENTRADA));
+        estoque.add(new EstoqueModel(3, produtoDao.buscar("3"), 30, funcionarioService.buscar("bruna@bruna"), Classificacao.ENTRADA));
     }
 
     public ArrayList<EstoqueModel> getEstoque() {

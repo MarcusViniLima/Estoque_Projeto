@@ -43,4 +43,13 @@ public class ProdutoDao {
         }
     }
 
+    public ProdutoModel buscar(String id) {
+        for (ProdutoModel produto : produtos) {
+            if (produto.getId().equals(id)) {
+                return produto;
+            }
+        }
+        return null; // Retorna null se o produto não for encontrado
+    }
+
 }

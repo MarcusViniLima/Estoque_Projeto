@@ -57,4 +57,9 @@ public class EstoqueModel {
     public void setTipo(Classificacao tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return "EstoqueModel [id=" + id + ", produto=" + produto.getId() + ", quantidade=" + quantidade + ", funcionario=" + funcionario.getNome() + ", tipo=" + tipo + "]";
+    }
 }
